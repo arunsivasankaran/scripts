@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# check if script is sourced, and if NOT quit
+if [ "$BASH_SOURCE" = "$0" ]; then
+	echo "this is not a script !"
+	echo "this library of helper functions..."
+	exit 1
+fi
+
+# 
+pass_fail() {
+	var=$1
+	if [ "$var" != "" ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+
+# check if cmd is in provided path
+in_path() {
+	cmd=$1
+	ourpath=$2
+	result=1
+
+	oldIFS=$IFS
+	IFS=":"
+
+	for directory in $ourpath; do
+		if [ -x $directory/$cmd ]; then
+			result=0
+		fi
+	done
+
+	IFS=$oldIFS
+	return $result
+}
+
+# check if given command is in $PATH
+check_cmd() {
+	var=$1
+
+	if [ "$var" != "" ]; then
+		if [ "${var:0:1}" = "/" ]; then
+			if [ ! -x $var ]; then
+				return 1
+			fi
+		elif ! in_path $var "$PATH"; then
+			return 2
+		fi
+	fi
+}

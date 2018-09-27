@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# source library of functions
+. library
+
+# Testing helper for library function
+
+## Test library sourcing
+var=$(type pass_fail)
+pass="Script library is being sourced"
+fail="Script library was NOT sourced..boo"
+
+if [ "$var" = "" ]; then
+	printf -- "\033[31m ${fail} \033[0m\n"
+	exit 1
+else
+	printf -- "\033[32m ${pass} \033[0m\n"
+	exit 0
+fi
