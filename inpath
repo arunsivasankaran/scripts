@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # verifies that a specified program is in a provided path
 in_path() {
